@@ -1,0 +1,83 @@
+﻿@model Proyecto_Funeraria2020.Models.RepresentanteDifunto
+
+@{
+    ViewBag.Title = "AsignarRelacion";
+}
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+<h2>Difunto</h2>
+
+
+
+@using (Html.BeginForm("AsignarRelacion", "Difunto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("codDifunto", Model.codDifunto)
+    @Html.Hidden("nombreDifunto", Model.nombreDifunto)
+    @Html.Hidden("apellidoDifunto", Model.apellidoDifunto)
+    <div class="form-horizontal">
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr />
+        <h4>Asignar Relación</h4>
+        <hr /><br /><br />
+        <div>
+            <div class="form-group flexible">
+                @Html.Label("Nro documento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.codDifunto, new { htmlAttributes = new { maxlength = 8, @class = "form-control", disabled = "disabled" } })
+
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Nombre(s)", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.nombreDifunto, new { htmlAttributes = new { maxlength = 50, @class = "form-control", disabled = "disabled" } })
+
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Apellidos", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.apellidoDifunto, new { htmlAttributes = new { maxlength = 50, @class = "form-control", disabled = "disabled" } })
+
+                </div>
+            </div>
+
+
+            <div class="form-group flexible">
+                @Html.Label("Representante", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codRepresentante", (SelectList)ViewBag.representantes, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Relación con el difunto", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codParentesco", (SelectList)ViewBag.parentescos, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+
+                <input type="submit" value="Guardar" class="btn btn-success col-md-2  col-xs-5" />
+
+                @Html.ActionLink("Regresar", "Difuntos", null, new { @class = "btn btn-success col-md-2  col-xs-5" })
+
+            </div>
+
+            <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                @ViewBag.mensaje
+            </div>
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.Planes>
+
+@{
+    ViewBag.Title = "Tienda";
+}
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>En venta</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Ir al carrito", "Canasta", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+<hr />
+<h4>Lista de Planes</h4>
+<hr />
+<br />
+<br />
+<div class="form-group flexible text-danger mensaje">
+
+    @if (TempData["msj"] != null)
+    {
+
+        @TempData["msj"];
+    }
+
+</div>
+
+<div class="scroll" style=" width:100%;height:470px; overflow:auto ;">
+    <table class="table tabla" style="width:1050px;border: 2px solid black ">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("ID Plan")</th>
+            <th class="th-tabla">@Html.Label("Nombre Plan")</th>
+            <th class="th-tabla">@Html.Label("Precio")</th>
+            <th class="th-tabla">@Html.Label("Estado")</th>
+            <th class="th-tabla">@Html.Label("Cantidad")</th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.codPlan)</td>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.nombreplan)</td>
+                <td class="td-tabla">S/. @Html.DisplayFor(modelItem => item.precioPlan)</td>
+                <td class="td-tabla">
+                    @if (item.estPlan.Equals(1))
+                    {
+                        @Html.Label("Activo", new { @class = "btn btn-success", disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.Label("Inactivo", new { @class = "btn btn-warning", disabled = "disabled" })
+                    }
+
+
+                </td>
+                <td style="width:250px">
+                    @if (item.estPlan.Equals(1))
+                    {
+                        <div>
+                            @using (Html.BeginForm("Agregar", "Venta", FormMethod.Post))
+                            {
+                                <div class="form-group">
+                                    <div>@Html.Hidden("id", item.codPlan)</div>
+                                    <div class="col-md-6 col-xs-6">
+                                        @Html.TextBox("cantidad", null, new { @class = "form-control", type = "number", min = 1, max = 50 })
+                                    </div>
+                                    <button class="btn btn-success">Agregar</button>
+                                </div>
+                            }
+                        </div>
+                    }
+                    </td>
+            </tr>
+        }
+
+    </table>
+</div>

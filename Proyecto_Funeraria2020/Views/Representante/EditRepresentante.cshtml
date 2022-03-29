@@ -1,0 +1,125 @@
+﻿@model Proyecto_Funeraria2020.Models.Representante
+
+@{
+    ViewBag.Title = "EditRepresentante";
+}
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Representante</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Volver al listado", "Representantes", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+
+<div class="prodser">
+    @using (Html.BeginForm("EditRepresentante", "Representante", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <h4>Actualizar Representante</h4>
+        <hr />
+        <br />
+        <br />
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("codRepresentante", Model.codRepresentante)
+
+        <div class="div-izquierda">
+            <div class="form-group flexible">
+                @Html.Label("Nro Documento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.codRepresentante, new { htmlAttributes = new { maxlength = 11, @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.codRepresentante, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Tipo Documento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codTipoDocumento", (SelectList)ViewBag.tipdoc, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Tipo Persona", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-60">
+                    @Html.DropDownList("codTipoPersona", (SelectList)ViewBag.tipper, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Nombre(s)", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.nomRepresentante, new { htmlAttributes = new { maxlength = 50, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nomRepresentante, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Apellidos", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.apeRepresentante, new { htmlAttributes = new { maxlength = 50, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.apeRepresentante, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-derecha">
+            <div class="form-group flexible">
+                @Html.Label("Género", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codGenero", (SelectList)ViewBag.generos, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Vivienda Residencial", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.dirRepresentante, new { htmlAttributes = new { maxlength = 80, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.dirRepresentante, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Distrito", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codDistrito", (SelectList)ViewBag.distritos, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Teléfono", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.telRepresentante, new { htmlAttributes = new { maxlength = 11, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.telRepresentante, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible ">
+
+                <input type="submit" value="Actualizar" class="btn btn-success col-md-4  col-xs-5" />
+                @Html.ActionLink("Nuevo", "CreateRepresentante", null, new { @class = "btn btn-success col-md-4  col-xs-5" })
+
+            </div>
+
+            <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                @ViewBag.mensaje
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

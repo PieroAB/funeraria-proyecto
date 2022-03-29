@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.ProductoServicio>
+
+<style>
+    .eliminado {
+        margin: 20px;
+        font-size: 1.20em;
+        font-weight: 600;
+    }
+    .flexible {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+
+<div style="display:block;">
+
+    <div>
+        <hr />
+        <h4>Lista de Productos</h4>
+        <hr />
+    </div>
+
+
+
+    <div class="form-group  text-danger eliminado">
+
+        @if (TempData["msj"] != null)
+        {
+
+            @TempData["msj"];
+        }
+
+    </div>
+
+</div>
+
+
+<div class="scroll" style="width:100%;height:340px; overflow: auto;">
+    <table class="table tabla" style="width:1185px!important;">
+        <tr class="tr-tabla">
+            <th class="th-tabla">Código</th>
+            <th style="width:180px;" class="th-tabla">Nombre Producto</th>
+            <th style="width:180px;" class="th-tabla">Descripción</th>
+            <th class="th-tabla">Color</th>
+            <th class="th-tabla">Material</th>
+            <th style="width:50px;" class="th-tabla">Stock</th>
+            <th class="th-tabla">Precio</th>
+            <th class="th-tabla">Imagen</th>
+            <th class="th-tabla"></th>
+            <th class="th-tabla"></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                 <td class="td-tabla">@Html.DisplayFor(s => item.codItem)</td>
+                <td class="td-tabla">@Html.DisplayFor(s => item.nomItem)</td>
+                <td class="td-tabla">@Html.DisplayFor(s => item.desItem)</td>
+                <td class="td-tabla">
+                    @if (item.codColor.Equals("-")){ @Html.DisplayName("-")} 
+                    else if (item.codColor.Equals("1")){ @Html.DisplayName("Plateado")}
+                    else if (item.codColor.Equals("2")){ @Html.DisplayName("Negro")}
+                    else if (item.codColor.Equals("3")){ @Html.DisplayName("Marron")}
+                    else if (item.codColor.Equals("4")){ @Html.DisplayName("Blanco")}
+                    else if (item.codColor.Equals("5")){ @Html.DisplayName("Ceniza")}
+                    else if (item.codColor.Equals("6")){ @Html.DisplayName("Rojo oscuro")}
+           
+                </td>
+                <td class="td-tabla">
+                    @if (item.codColor.Equals("-")){ @Html.DisplayName("-")}     
+                    else if (item.codMaterial.Equals("1")){ @Html.DisplayName("Madera")} 
+                    else if (item.codMaterial.Equals("2")){ @Html.DisplayName("Metal")}
+                    else if (item.codMaterial.Equals("3")){ @Html.DisplayName("Cristal")}
+                </td>
+                <td class="td-tabla">@Html.DisplayFor(s => item.stockItem)</td>
+                <td class="td-tabla">S/. @Html.DisplayFor(s => item.precioItem)</td>
+                <td class="td-tabla"><img style="width:40px;height:40px;" src="@Url.Content(item.imgItem)" alt="imagen no disponible" /></td>
+                <td class="td-tabla">@Html.ActionLink("Editar", "EditProducto", new { id = item.codItem }, new { @class = "btn btn-info" })</td>
+                <td class="td-tabla">
+                @if (item.existEnPlan.Equals("No Existe"))
+                {
+                @Html.ActionLink("Eliminar", "DeleteProducto", new { id = item.codItem }, new { @class = "btn btn-danger" })
+                }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />

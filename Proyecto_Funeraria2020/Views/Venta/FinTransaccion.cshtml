@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "FinTransaccion";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Boletas</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Ver Boletas", "Boletas", null, new { @class = "btn btn-success col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+<hr />
+<br />
+<h4>Proceso realizado !!</h4>
+<br />
+
+<div style="font-size:1.20em;">@ViewBag.mensaje</div>

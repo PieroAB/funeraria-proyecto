@@ -1,0 +1,86 @@
+﻿@model Proyecto_Funeraria2020.Models.Personal
+
+
+@{
+    ViewBag.Title = "AsignarUsuario";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+<h2>Personal</h2>
+
+
+<div class="prodser">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <h4>Asignar Usuario</h4>
+        <hr /><br /><br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("dniPersonal", Model.dniPersonal)
+        @Html.Hidden("nomPersonal", Model.nomPersonal)
+        @Html.Hidden("apePersonal", Model.apePersonal)
+        <div>
+            <div class="form-group flexible">
+                @Html.Label("DNI", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3 " })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.dniPersonal, new { htmlAttributes = new { maxlength = 8, @class = "form-control", disabled = "disabled" } })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Nombre(s)", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.nomPersonal, new { htmlAttributes = new { maxlength = 40, @class = "form-control", disabled = "disabled" } })
+
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Apellidos", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.apePersonal, new { htmlAttributes = new { maxlength = 40, @class = "form-control", disabled = "disabled" } })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Usuario", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.usuPersonal, new { htmlAttributes = new { maxlength = 15, @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.usuPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Contraseña", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.PasswordFor(model => model.conPersonal, new { maxlength = 15, @class = "form-control ", required = "required" })
+                    @Html.ValidationMessageFor(model => model.conPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+
+                <input type="submit" value="Guardar" class="btn btn-success col-md-2  col-xs-5" />
+
+                @Html.ActionLink("Regresar", "Personales", null, new { @class = "btn btn-success col-md-2  col-xs-5" })
+
+            </div>
+
+            <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                @ViewBag.mensaje
+            </div>
+        </div>
+    </div>
+    }
+</div>
+    
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+

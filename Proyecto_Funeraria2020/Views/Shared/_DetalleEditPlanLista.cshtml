@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.DetallePlan>
+
+
+<div class="scroll" style=" width:900px;height:370px;overflow:auto; margin-left:auto;margin-right:auto;">
+    <table class="table tabla" style="width:900px;border: 2px solid black">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("Codigo Item")</th>
+            <th class="th-tabla">@Html.Label("Nombre")</th>
+            <th class="th-tabla">@Html.Label("Cantidad")</th>
+            <td class="th-tabla">@Html.Label("Importe")</td>
+            <td></td>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.codItem)</td>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.nomItem)</td>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.cantPlan)</td>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.subtotalrecibido)</td>
+                <td>@Html.ActionLink("Remover", "RemoverEditItem", new { id = item.codItem }, new { @class = "btn btn-danger col-md-7" })</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">@Html.Label("Monto del Plan")</td>
+            <td>@Model.Sum(x => x.subtotal)</td>
+            <td></td>
+        </tr>
+
+    </table>
+</div>
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />

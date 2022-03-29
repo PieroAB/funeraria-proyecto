@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.DetalleTransaccion>
+
+@{
+    ViewBag.Title = "Canasta";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Carrito</h2>
+    <div style="width:50%;margin-top:20px;">
+        @Html.ActionLink("Regresar", "Tienda", null, new { @class = "btn btn-primary col-md-5 col-xs-12 ", @style = "float:right;" })
+    </div>
+</div>
+<hr />
+<h4>Items Agregados a la Boleta</h4>
+<hr />
+<br />
+
+<div>
+
+    @Html.ActionLink("Continuar con la venta", "RealizarBoleta", null, new { @class = "btn btn-warning col-md-3   " })
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="scroll" style=" width:100%;height:100%; overflow: auto;">
+    <table class="table tabla" style="width:1030px;border: 2px solid black">
+        <tr class="tr-tabla">
+            <th class="th-tabla">
+                @Html.DisplayName("Código Plan")
+            </th>
+            <th class="th-tabla">
+                @Html.DisplayName("Nombre Plan")
+            </th>
+            <th class="th-tabla">
+                @Html.DisplayName("Precio Unitario")
+            </th>
+            <th class="th-tabla">
+                @Html.DisplayName("Cantidad")
+            </th>
+            <th class="th-tabla">
+                @Html.DisplayName("Importe")
+            </th>
+            <th class="th-tabla">
+                @Html.DisplayName("Opciones")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.codItemPlan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombrePlan)
+        </td>
+        <td>
+            S/. @Html.DisplayFor(modelItem => item.importe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidad)
+        </td>
+        <td>
+            S/. @Html.DisplayFor(modelItem => item.subtotal)
+        </td>
+        <td>
+            @Html.ActionLink("Quitar", "DeleteDetBol", new { id = item.codItemPlan }, new { @class = "btn btn-danger col-md-10" })
+        </td>
+    </tr>
+        }
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">@Html.Label("Monto de la Venta")</td>
+            <td >S/. @Model.Sum(x => x.subtotal)</td>
+            <td >S/. @Model.Sum(x => x.subtotal + x.subtotal*18 / 100)</td>
+        </tr>
+    </table>
+</div>

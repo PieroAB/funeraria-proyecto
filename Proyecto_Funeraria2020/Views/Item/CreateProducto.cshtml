@@ -1,0 +1,146 @@
+﻿
+@using Proyecto_Funeraria2020.Models;
+@model Proyecto_Funeraria2020.Models.ProductoServicio
+
+
+@{
+    ViewBag.Title = "CreateProducto";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Productos</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Ir a Servicios", "createServicio", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+
+<div class="prodser">
+    @using (Html.BeginForm("CreateProducto", "Item", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            <h4>Registre un Producto</h4>
+            <hr /><br /><br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        
+            <div class="div-izquierda">
+                <div class="form-group flexible">
+                    @Html.Label("Nombre", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.EditorFor(model => model.nomItem, new { htmlAttributes = new { maxlength = 50, @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nomItem, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.TextAreaFor(model => model.desItem, new { rows = 5, cols = 20, maxlength = 50, @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.desItem, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Color", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.DropDownList("codColor", (SelectList)ViewBag.colores, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Material", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.DropDownList("codMaterial", (SelectList)ViewBag.materiales, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="div-derecha">
+                <div class="form-group flexible">
+                    @Html.Label("Stock", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                    <div class="col-md-5 col-xs-6">
+                        @Html.EditorFor(model => model.stockItem, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.stockItem, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Precio", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                    <div class="col-md-5 col-xs-6">
+                        @Html.EditorFor(model => model.precioItem, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.precioItem, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible ">
+                    @Html.Label("Imagen ", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                    <div class="col-md-5 col-xs-6 ">
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    <div class="col-md-5 col-xs-6 ">
+                        @Html.TextBox("archivo", "", new { maxlength = 60, type = "file", accept = "image/*" })
+                        <div class="text-danger">
+                            @ViewBag.imag
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-3"></div>
+                </div>
+
+                <div id="vista">
+                    <div id="vistazo">
+                    </div>
+                </div>
+
+                <div class="form-group flexible ">
+
+                    <input type="submit" value="Registrar" class="btn btn-success col-md-4  col-xs-5" />
+                    @Html.ActionLink("Nuevo", "createProducto", null, new { @class = "btn btn-success col-md-4  col-xs-5" })
+
+                </div>
+
+                <div class="mensaje text-danger" style=" color:#E01111; text-align: center;">
+                    @ViewBag.mensaje
+                </div>
+
+            </div>
+
+
+        </div>
+        
+
+    }
+</div>
+
+
+
+<div style="float:left;width:100%;margin-top:15px;">
+    @Html.Partial("_ProductosLista", (List<ProductoServicio>)ViewBag.productos)
+</div>
+
+
+<script>
+    document.getElementById("archivo").onchange = function (e) {
+
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = function () {
+            let preview = document.getElementById('vistazo'),
+                img = document.createElement('img');
+            img.src = reader.result;
+            preview.innerHTML = '';
+            preview.append(img);
+        };
+    }</script>
+

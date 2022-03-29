@@ -1,0 +1,117 @@
+﻿@using Proyecto_Funeraria2020.Models;
+@model Proyecto_Funeraria2020.Models.Planes
+
+@{
+    ViewBag.Title = "EditarPlan";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Plan</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Volver al listado", "Planes", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+<div class="prodser" style="margin-bottom:5%;">
+    @using (Html.BeginForm("EditarPlan", "Planes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("imgPlan", Model.imgPlan)
+        @Html.Hidden("codPlan", Model.codPlan)
+
+    <div class="form-horizontal">
+        <hr />
+        <h4>Editar Plan</h4>
+        <hr /><br /><br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="div-izquierda">
+            <div class="form-group flexible">
+                @Html.Label("Código Plan", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.codPlan, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.codPlan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Nombre", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.nombreplan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombreplan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Precio", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.precioPlan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.precioPlan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="div-derecha">
+            <div class="form-group flexible">
+                @Html.Label("Estado", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                <div class="col-md-6 col-xs-6">
+                    @Html.DropDownList("estPlan", (SelectList)ViewBag.estados, new { @class = "btn btn-default" })
+                </div>
+            </div>
+            <div class="form-group flexible ">
+                @Html.Label("Imagen ", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                <div class="col-md-6 col-xs-6 ">
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                <div class="col-md-5 col-xs-6 ">
+                    @Html.TextBox("archivo", "", new { maxlength = 50, type = "file" })
+                    <div class="text-danger">
+                        @ViewBag.imag
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-3"></div>
+            </div>
+
+            <div id="vista">
+                <div id="vistazo">
+                    <img src="@Url.Content(Model.imgPlan)" style="width:100%;height:100%;" />
+                </div>
+            </div>
+
+
+            <div class="form-group flexible">
+                <input type="submit" value="Actualizar" class="btn btn-success col-md-4  col-xs-5" />
+                @Html.ActionLink("Editar Detalle", "itemsEditPlanes", null, new { @class = "btn btn-success col-md-3  col-xs-5" })
+            </div>
+            <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                @ViewBag.mensaje
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+
+<script>
+    document.getElementById("archivo").onchange = function (e) {
+
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = function () {
+            let preview = document.getElementById('vistazo'),
+                img = document.createElement('img');
+            img.src = reader.result;
+            preview.innerHTML = '';
+            preview.append(img);
+        };
+    }
+</script>

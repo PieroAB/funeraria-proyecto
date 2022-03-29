@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.Transaccion>
+
+@{
+    ViewBag.Title = "Boletas";
+}
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Boleta</h2>
+    
+    <div style="width:40%;margin-top:20px;">
+        @if ((int)ViewBag.cargo == 1 || (int)ViewBag.cargo == 2)
+        {
+        @Html.ActionLink("Nueva Venta", "Tienda", null, new { @class = "btn btn-primary col-md-6 ", @style = "float:right;" })
+        }
+    </div>
+</div>
+<hr />
+<h4>Lista de Boletas Emitidas</h4>
+<hr />
+<br />
+<br />
+
+<div class="prodser">
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            <div class="div-izquierda">
+                <div class="form-group flexible">
+                    @Html.Label("Entre fechas", htmlAttributes: new { @class = "control-label col-md-5 col-xs-3" })
+
+                    <div class="col-md-7 col-xs-6">
+                        @Html.TextBox("f1", null, new { Type = "date", @class = "form-control" })
+                    </div>
+                    <div class="col-md-7 col-xs-6">
+                        @Html.TextBox("f2", null, new { Type = "date", @class = "form-control" })
+                    </div>
+
+                </div>
+
+                <div class="form-group flexible ">
+                    <div style="margin-left:auto; margin-right:auto;">
+                        <input type="submit" value="Filtrar" class="btn btn-success col-md-12  col-xs-12" />
+                    </div>
+                </div>
+
+
+                <div class="form-group flexible text-danger mensaje">
+
+                    @if (TempData["msj"] != null)
+                    {
+
+                        @TempData["msj"];
+                    }
+                    @ViewBag.mensaje
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+</div>
+<div class="scroll" style="width:100%;height:340px; overflow:auto ;">
+    <table class="table tabla" style="width:1330px;border: 2px solid black;">
+        <tr class="tr-tabla">
+
+            <th class="th-tabla">@Html.DisplayName("Codigo")</th>
+            <th class="th-tabla">@Html.DisplayName("Fecha Emisión")</th>
+            <th class="th-tabla">@Html.DisplayName("Representante")</th>
+            <th class="th-tabla">@Html.DisplayName("Nombre cementerio")</th>
+            <th class="th-tabla">@Html.DisplayName("Fecha Sepelio")</th>
+            <!-- <th class="th-tabla">@Html.DisplayName("Subtotal")</th>-->
+            <th class="th-tabla">@Html.DisplayName("Total")</th>
+            <th class="th-tabla">@Html.DisplayName("Estado")</th>
+            <th class="th-tabla"></th>
+            @if ((int)ViewBag.cargo == 1)
+            {
+                <th class="th-tabla"></th>
+                <th class="th-tabla"></th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.codBoleta)</td>
+        <td>@Html.DisplayFor(modelItem => item.fechaEmisionBoleta)</td>
+        <td>@Html.DisplayFor(modelItem => item.codRepresentante)</td>
+        <td>@Html.DisplayFor(modelItem => item.nomCementerio)</td>
+        <td>@Html.DisplayFor(modelItem => item.fechaSepelio)</td>
+        <!-- <td>@Html.DisplayFor(modelItem => item.precioSinIGV)</td>-->
+        <td>S/. @Html.DisplayFor(modelItem => item.Total)</td>
+        <td>@Html.DisplayFor(modelItem => item.nombreestado)</td>
+        <td>@Html.ActionLink("Detalles", "DetalleBoleta", new { id = item.codBoleta }, new { @class = "btn btn-success" })</td>
+        @if ((int)ViewBag.cargo == 1)
+        {
+            <td>
+                @if (item.nombreestado == "Emitido")
+                {
+                    @Html.ActionLink("Actualizar", "ActualizarBoleta", new { id = item.codBoleta }, new { @class = "btn btn-warning" })}
+            </td>
+            <td>
+                @if (item.nombreestado == "Emitido")
+                {
+                    @Html.ActionLink("Anular", "AnularBoleta", new { id = item.codBoleta }, new { @class = "btn btn-danger" })
+                }
+            </td>
+        }
+    </tr>
+        }
+
+    </table>
+
+</div>
+
+
+<div class="paginacion">
+    <!--dos botones-->
+    @Html.ActionLink("<<", "Boletas", new { v = (int)ViewBag.v, f1 = (DateTime?)ViewBag.f1, f2= (DateTime?)ViewBag.f2, boton = "rp" },
+    new { @class = "btn btn-success" })
+
+    @Html.ActionLink("<", "Boletas", new { v = (int)ViewBag.v, f1 = (DateTime?)ViewBag.f1, f2 = (DateTime?)ViewBag.f2, boton = "r" },
+    new { @class = "btn btn-default" })
+
+    @Html.Label(((int)ViewBag.v + 1).ToString(), new { @class = "pagina" })
+
+    @Html.ActionLink(">", "Boletas", new { v = (int)ViewBag.v, f1 = (DateTime?)ViewBag.f1, f2 = (DateTime?)ViewBag.f2, boton = "a" },
+    new { @class = "btn btn-default" })
+
+    @Html.ActionLink(">>", "Boletas", new { v = (int)ViewBag.v, f1 = (DateTime?)ViewBag.f1, f2 = (DateTime?)ViewBag.f2, boton = "au" },
+    new { @class = "btn btn-success" })
+
+</div>
+
+
+
+
+

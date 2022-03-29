@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.DetallePlan>
+
+<div style="margin-top:2%;display:flex;justify-content:space-between">
+
+    <h2>Detalle del Plan</h2>
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Agregar Items", "AnaItemsEditPlan", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+<div class="scroll" style=" margin-top:8%;width:900px;height:300px;overflow:auto; margin-left:auto;margin-right:auto;">
+ 
+    <table class="table tabla" style="width:900px;border: 2px solid black">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("Codigo Item")</th>
+            <th class="th-tabla">@Html.Label("Nombre")</th>
+            <th class="th-tabla">@Html.Label("Cantidad")</th>
+            <td class="th-tabla">@Html.Label("Importe")</td>
+            <td class="th-tabla"></td>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.codItem)</td>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.nomItem)</td>
+                <td class="td-tabla">@Html.DisplayFor(modelItem => item.cantPlan)</td>
+                <td class="td-tabla">S/. @Html.DisplayFor(modelItem => item.subtotalrecibido)</td>
+                <td class="td-tabla">@Html.ActionLink("Remover", "RemoverEditItem", new { id = item.codItem }, new { @class = "btn btn-danger col-md-7" })</td>
+            </tr>
+        }
+    </table>
+</div>
+<div style="float:left;margin-left:30%;width:70%;margin-top:2%;">
+    <label style="font-size: 1.50rem; float: left; width: 20%; margin-top: 1%;">@Html.Label("Monto del Plan : ")</label>
+    <label style="font-size:1.50rem; float:left;width:20%;margin-top:1%;"><strong>S/. @Model.Sum(x => x.subtotalrecibido)</strong></label>
+    <div style="float:left;margin-left:20%;width:40%;">
+    @using (Html.BeginForm("ActualizaDetPlan", "Planes")) {
+    <button class="btn btn-primary col-md-5  col-xs-7">Guardar</button>
+    }
+    </div>
+</div>
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />

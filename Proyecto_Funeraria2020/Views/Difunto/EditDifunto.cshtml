@@ -1,0 +1,156 @@
+﻿@model Proyecto_Funeraria2020.Models.Difunto
+
+@{
+    ViewBag.Title = "EditDifunto";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Difunto</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Volver al listado", "Difuntos", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+<div class="prodser">
+    @using (Html.BeginForm("EditDifunto", "Difunto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("imgActaDifunto", Model.imgActaDifunto)
+        @Html.Hidden("codDifunto", Model.codDifunto)
+        <div class="form-horizontal">
+            <hr />
+            <h4>Editar Difunto</h4>
+            <hr /><br /><br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="div-izquierda">
+                <div class="form-group flexible">
+                    @Html.Label("DNI/CE", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.EditorFor(model => model.codDifunto, new { htmlAttributes = new { maxlength = 8, @class = "form-control", disabled="disabled" } })
+                        @Html.ValidationMessageFor(model => model.codDifunto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Tipo Documento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.DropDownList("codTipoDocumento", (SelectList)ViewBag.tipdoc, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Nombre", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.EditorFor(model => model.nomDifunto, new { htmlAttributes = new { maxlength = 50, @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nomDifunto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Apellidos", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.EditorFor(model => model.apeDifunto, new { htmlAttributes = new { maxlength = 50, @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.apeDifunto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Genero", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.DropDownList("codGenero", (SelectList)ViewBag.generos, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Estado Civil", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.DropDownList("codEstadoCivil", (SelectList)ViewBag.estciviles, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+            <div class="div-derecha">
+                <div class="form-group flexible">
+                    @Html.Label("Fecha Nacimiento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+
+                        @Html.EditorFor(model => model.fecNacDifunto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fecNacDifunto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Fecha Fallecimiento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.EditorFor(model => model.fecFallDifunto, new { htmlAttributes = new { maxlength = 80, @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fecFallDifunto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    @Html.Label("Lugar Fallecimiento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                    <div class="col-md-7 col-xs-6">
+                        @Html.EditorFor(model => model.lugFallDifunto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lugFallDifunto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group flexible ">
+                    @Html.Label("Acta Defunción ", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                    <div class="col-md-5 col-xs-6 ">
+                    </div>
+                </div>
+
+                <div class="form-group flexible">
+                    <div class="col-md-5 col-xs-6 ">
+                        @Html.TextBox("archivo", "", new { maxlength = 80, type = "file", accept = "image/*" })
+                        <div class="text-danger">
+                            @ViewBag.imag
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-3"></div>
+                </div>
+
+                <div id="vista">
+                    <div id="vistazo">
+                        <img src="@Url.Content(Model.imgActaDifunto)" style="width:100%;height:100%;" />
+                    </div>
+                </div>
+
+
+                <div class="form-group flexible">
+                    <input type="submit" value="Actualizar" class="btn btn-success col-md-4  col-xs-5" />
+
+                    @Html.ActionLink("Nuevo", "CreateDifunto", null, new { @class = "btn btn-success col-md-4  col-xs-5" })
+                </div>
+
+
+                <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                    @ViewBag.mensaje
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+document.getElementById("archivo").onchange = function (e) {
+
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = function () {
+        let preview = document.getElementById('vistazo'),
+            img = document.createElement('img');
+        img.src = reader.result;
+        preview.innerHTML = '';
+        preview.append(img);
+    };
+}
+</script>

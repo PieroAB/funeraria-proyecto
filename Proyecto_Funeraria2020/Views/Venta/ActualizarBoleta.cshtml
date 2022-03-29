@@ -1,0 +1,96 @@
+﻿@model Proyecto_Funeraria2020.Models.Transaccion
+
+@{
+    ViewBag.Title = "ActualizarBoleta";
+}
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Boletas</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Volver al listado", "Boletas", null, new { @class = "btn btn-primary col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+<div class="prodser">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("codBoleta", Model.codBoleta)
+        @Html.Hidden("codRepresentante", Model.codRepresentante)
+        @Html.Hidden("fechaEmisionBoleta", Model.fechaEmisionBoleta)
+        <div class="form-horizontal">
+            <hr />
+            <h4>Actualice la boleta</h4>
+            <hr /><br /><br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group flexible">
+                @Html.Label("Nro. Boleta", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.codBoleta, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.codBoleta, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Nro. Representante", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.codRepresentante, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.codRepresentante, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group flexible">
+                @Html.Label("Dirección del Sepelio", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.dirSepelio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.dirSepelio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Cementerio", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.nomCementerio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nomCementerio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Fecha del Sepelio", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.fechaSepelio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fechaSepelio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group flexible">
+                @Html.Label("Estado actual de la boleta", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("estado", (SelectList)ViewBag.estados, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group flexible ">
+
+                <input type="submit" value="Actualizar" class="btn btn-success col-md-4  col-xs-5" />
+                @Html.ActionLink("Nuevo Boleta", "Tienda", null, new { @class = "btn btn-success col-md-3  col-xs-5" })
+
+            </div>
+
+            <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                @ViewBag.mensaje
+            </div>
+        </div>
+    }
+</div>
+

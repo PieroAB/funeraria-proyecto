@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.ProductoServicio>
+
+
+<style>
+    .eliminado {
+        margin: 20px;
+        font-size: 1.20em;
+        font-weight: 600;
+    }
+
+    .flexible {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+
+
+<div style="display:block;">
+
+    <div>
+        <hr />
+        <h4>Lista de Servicios</h4>
+        <hr />
+    </div>
+
+
+    <div class="form-group  text-danger eliminado">
+
+        @if (TempData["msj"] != null)
+        {
+
+            @TempData["msj"];
+        }
+
+    </div>
+</div>
+
+<div class="scroll" style="margin-left:auto;margin-right:auto; width:90%;height:340px; overflow: auto;">
+    <table class="table tabla" style="width:99%;">
+        <tr class="tr-tabla">
+            <th class="th-tabla">Código</th>
+            <th class="th-tabla">Nombre Servicio</th>
+            <!-- <th class="th-tabla">Descripción</th>  -->
+            <th class="th-tabla">Precio</th>
+            <th class="th-tabla">Imagen</th>
+            <th class="th-tabla"></th>
+            <th class="th-tabla"></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td class="td-tabla">@Html.DisplayFor(s => item.codItem)</td>
+        <td class="td-tabla">@Html.DisplayFor(s => item.nomItem)</td>
+        <!--   <td class="td-tabla">@Html.DisplayFor(s => item.desItem)</td>  -->
+        <td class="td-tabla">S/. @Html.DisplayFor(s => item.precioItem)</td>
+        <td class="td-tabla"><img style="width:50px;height:50px;" src="@Url.Content(item.imgItem)" alt="imagen no disponible" /></td>
+        <td class="td-tabla">@Html.ActionLink("Editar", "EditServicio", new { id = item.codItem }, new { @class = "btn btn-info" })</td>
+        <td class="td-tabla">
+            @if (item.existEnPlan.Equals("No Existe"))
+            {
+                @Html.ActionLink("Eliminar", "DeleteServicio", new { id = item.codItem }, new { @class = "btn btn-danger" })
+            }
+        </td>
+    </tr>
+        }
+    </table>
+</div>
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />

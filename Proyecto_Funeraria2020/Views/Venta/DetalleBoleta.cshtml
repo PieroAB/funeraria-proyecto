@@ -1,0 +1,107 @@
+﻿@using Proyecto_Funeraria2020.Models;
+
+@model Proyecto_Funeraria2020.Models.Transaccion
+
+@{
+    ViewBag.Title = "DetalleBoleta";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Detalle Boleta</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Volver al listado", "Boletas", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+<div class="prodser">
+
+    <hr />
+    <h4>Ver Boleta</h4>
+    <hr /><br /><br />
+    <dl class="dl-horizontal" style="margin-left:25%;">
+        
+        <dt class= "control-label ">
+            @Html.DisplayName("Boleta : ")
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.codBoleta)
+        </dd>
+     
+        <dt class= "control-label ">
+            @Html.DisplayName("Cliente :  ")
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.codRepresentante)
+        </dd>
+        
+        <dt class= "control-label ">
+            @Html.DisplayName("Fecha de Emisión : ")
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.fechaEmisionBoleta)
+        </dd>
+       
+        <dt class= "control-label">
+            @Html.DisplayName("Dirección Sepelio : ")
+        </dt>
+
+        <dd >
+            @Html.DisplayFor(model => model.dirSepelio)
+        </dd>
+    
+        <dt class= "control-label ">
+            @Html.DisplayName("Cementerio :  ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomCementerio)
+        </dd>
+      
+        <dt class= "control-label">
+            @Html.DisplayName("Fecha Sepelio : ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaSepelio)
+        </dd>
+      
+        <dt class= "control-label ">
+            @Html.DisplayName("Subtotal :  ")
+        </dt>
+
+        <dd >
+            S/. @Html.DisplayFor(model => model.precioSinIGV)
+        </dd>
+        
+        <dt class= "control-label ">
+            @Html.DisplayName("IGV : ")
+        </dt>
+
+        <dd>
+            @Html.DisplayName(" 18 % ")
+        </dd>
+        
+        <dt class= "control-label ">
+            @Html.DisplayName("Total Neto : ")
+        </dt>
+        <dd >
+            S/. @Html.DisplayFor(model => model.Total)
+        </dd>
+        
+        <dt class= "control-label">
+            @Html.DisplayName("Estado : ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.nombreestado)
+        </dd>
+    </dl>
+</div>
+<div style="float:left;width:100%;margin-top:15px;">
+    @Html.Partial("_DetalleBoletaLista", (List<DetallePlan>)ViewBag.boldet)
+</div>
+

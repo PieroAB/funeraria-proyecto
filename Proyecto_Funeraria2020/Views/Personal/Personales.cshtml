@@ -1,0 +1,148 @@
+﻿
+@using Proyecto_Funeraria2020.Models;
+@model IEnumerable<Proyecto_Funeraria2020.Models.Personal>
+
+@{
+    ViewBag.Title = "Personales";
+}
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display: flex;justify-content: space-between;">
+
+    <h2>Personal</h2>
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Nuevo Personal", "CreatePersonal", null, new { @class = "btn btn-primary col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+<hr />
+<h4>Lista de Personales</h4>
+<hr />
+<br />
+<br />
+
+
+<div class="prodser">
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            <div class="div-izquierda">
+                <div class="form-group flexible">
+                    @Html.Label("Nombres / Apellidos", htmlAttributes: new { @class = "control-label col-md-5 col-xs-3" })
+
+                    <div class="col-md-7 col-xs-6">
+                        @Html.TextBox("para", null, new { maxlength = 40, @class = "form-control" })
+                    </div>
+
+                </div>
+
+                <div class="form-group flexible ">
+                    <div style="margin-left:auto; margin-right:auto;">
+                        <input type="submit" value="Buscar" class="btn btn-success col-md-12  col-xs-12" />
+                    </div>
+                </div>
+
+
+                <div class="form-group flexible text-danger mensaje">
+
+                    @if (TempData["msj"] != null)
+                    {
+
+                        @TempData["msj"];
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+<div class="scroll" style=" width:100%;height:370px; overflow:auto ;">
+    <table class="table tabla" style="width:1190px;">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("DNI")</th>
+            <th class="th-tabla">@Html.Label("Nombre(s)")</th>
+            <th class="th-tabla">@Html.Label("Apellidos")</th>
+            <!-- <th class="th-tabla">@Html.Label("Género")</th>-->
+            <th class="th-tabla" style="width:150px;">@Html.Label("Vivienda Residencial")</th>
+
+            <!--<th class="th-tabla">@Html.Label("Distrito")</th>-->
+            <th class="th-tabla">@Html.Label("Teléfono")</th>
+            <!--<th>@Html.Label("Cargo")</th>
+    <th>@Html.Label("Estado")</th>-->
+            <!--   -->
+            <th class="th-tabla">@Html.Label("Imagen")</th>
+
+            <th class="th-tabla">@Html.Label("Usuario")</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td class="td-tabla">@Html.DisplayFor(modelItem => item.dniPersonal)</td>
+        <td class="td-tabla">@Html.DisplayFor(modelItem => item.nomPersonal)</td>
+        <td class="td-tabla">@Html.DisplayFor(modelItem => item.apePersonal)</td>
+        <!-- <td class="td-tabla">@Html.DisplayFor(modelItem => item.codGenero)</td> -->
+        <td class="td-tabla">@Html.DisplayFor(modelItem => item.dirPersonal)</td>
+
+        <!--<td class="td-tabla">@Html.DisplayFor(modelItem => item.codDistrito)</td>-->
+        <td class="td-tabla">@Html.DisplayFor(modelItem => item.telPersonal)</td>
+
+        <!--<td>@Html.DisplayFor(modelItem => item.codCargo)</td>
+    <td>@Html.DisplayFor(modelItem => item.codEstadoPersonal)</td>-->
+        <td class="td-tabla"><img style="width:40px;height:40px;" src="@Url.Content(item.imgPersonal)" alt="imagen no disponible" /></td>
+
+        <td class="td-tabla">
+            @if (item.asigPersonal.Equals("No asignado"))
+            {
+                if (item.codCargo == 1 || item.codCargo == 2 || item.codCargo == 4 || item.codCargo == 5)
+                {
+                    @Html.ActionLink("No asignado", "AsignarUsuario", new { id = item.dniPersonal }, new { @class = "btn btn-primary" })}
+                else
+                {
+                    @Html.ActionLink("Sin privilegios", null, null, new { @class = "btn btn-warning", disabled = "disabled" })
+                }
+            }
+            else if (item.asigPersonal.Equals("Asignado") && item.codCargo == 3)
+            {
+                @Html.ActionLink("Asignado/Inactivo", null, null, new { @class = "btn btn-warning", disabled = "disabled" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Asignado", null, null, new { @class = "btn btn-success", disabled = "disabled" })
+            }
+        </td>
+        <td class="td-tabla">@Html.ActionLink("Editar", "EditPersonal", new { id = item.dniPersonal }, new { @class = "btn btn-info" })</td>
+        <td class="td-tabla">@Html.ActionLink("Eliminar", "DeletePersonal", new { id = item.dniPersonal }, new { @class = "btn btn-danger" })</td>
+    </tr>
+        }
+    </table>
+</div>
+
+
+<!-- (poner arroba)   Html.Partial("_PersonalLista", (List<Personal>)ViewBag.listado)   -->
+
+<div class="paginacion" style="text-align:center;">
+    <!--dos botones-->
+    @Html.ActionLink("<<", "Personales", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "rp" },
+    new { @class = "btn btn-success" })
+
+    @Html.ActionLink("<", "Personales", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "r" },
+    new { @class = "btn btn-default" })
+
+    @Html.Label(((int)ViewBag.v + 1).ToString(),new { @class = "pagina"})
+
+    @Html.ActionLink(">", "Personales", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "a" },
+    new { @class = "btn btn-default" })
+
+    @Html.ActionLink(">>", "Personales", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "au" },
+    new { @class = "btn btn-success" })
+
+</div>

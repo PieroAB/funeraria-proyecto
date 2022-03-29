@@ -1,0 +1,178 @@
+﻿@model Proyecto_Funeraria2020.Models.Personal
+
+@{
+    ViewBag.Title = "CreatePersonal";
+}
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Personal</h2>
+
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Volver al listado", "Personales", null, new { @class = "btn btn-warning col-md-6 ", @style = "float:right;" })
+    </div>
+</div>
+
+
+
+<div class="prodser">
+    @using (Html.BeginForm("CreatePersonal", "Personal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+        <hr />
+        <h4>Registre un Personal</h4>
+        <hr /><br /><br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="div-izquierda">
+            <div class="form-group flexible">
+                @Html.Label("DNI", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.TextBoxFor(model => model.dniPersonal, new { maxlength = 8, @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.dniPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Nombre(s)", htmlAttributes: new { @class = "control-label  col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.nomPersonal, new { htmlAttributes = new { maxlength = 40, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nomPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Apellidos", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.apePersonal, new { htmlAttributes = new { maxlength = 40, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.apePersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Género", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codGenero", (SelectList)ViewBag.generos, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Vivienda Residencial", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.TextAreaFor(model => model.dirPersonal, new { rows = 5, cols = 20, maxlength = 80, @class = "form-control"  })
+                    @Html.ValidationMessageFor(model => model.dirPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Distrito", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.DropDownList("codDistrito", (SelectList)ViewBag.distritos, new { @class = "btn btn-default" })
+                </div>
+                
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Fecha de Nacimiento", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.fecNacPersonal, new { htmlAttributes = new { @class = "form-control", @Value = @DateTime.Now.ToShortDateString()   } })
+                    @Html.ValidationMessageFor(model => model.fecNacPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Teléfono", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.telPersonal, new { htmlAttributes = new { maxlength = 13, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.telPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Correo ", htmlAttributes: new { @class = "control-label col-md-4 col-xs-3" })
+                <div class="col-md-7 col-xs-6">
+                    @Html.EditorFor(model => model.emailPersonal, new { htmlAttributes = new { maxlength = 60, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.emailPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="div-derecha">
+
+            <div class="form-group flexible">
+                @Html.Label("Cargo", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                <div class="col-md-5 col-xs-6">
+                    @Html.DropDownList("codCargo", (SelectList)ViewBag.cargos, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                @Html.Label("Sueldo", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                <div class="col-md-5 col-xs-6">
+                    @Html.EditorFor(model => model.sueldoPersonal, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sueldoPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group flexible ">
+                @Html.Label("Imagen ", htmlAttributes: new { @class = "control-label col-md-2 col-xs-3" })
+                <div class="col-md-5 col-xs-6 ">
+                </div>
+            </div>
+
+            <div class="form-group flexible">
+                <div class="col-md-5 col-xs-6 ">
+                    @Html.TextBox("archivo", "", new { maxlength = 50, type = "file", accept = "image/*" })
+                    <div class="text-danger">
+                        @ViewBag.imag
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-3"></div>
+            </div>
+
+            <div id="vista">
+                <div id="vistazo">
+                </div>
+            </div>
+
+            <div class="form-group flexible ">
+
+                <input type="submit" value="Registrar" class="btn btn-success col-md-4  col-xs-5" />
+                @Html.ActionLink("Nuevo", "CreatePersonal", null, new { @class = "btn btn-success col-md-4  col-xs-5" })
+
+            </div>
+
+            <div class="mensaje text-danger" style=" border: 1px solid red; color:#E01111; text-align: center;">
+                @ViewBag.mensaje
+            </div>
+
+        </div>
+     </div>
+    }
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    <script>
+document.getElementById("archivo").onchange = function (e) {
+
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = function () {
+            let preview = document.getElementById('vistazo'),
+                img = document.createElement('img');
+            img.src = reader.result;
+            preview.innerHTML ='';
+            preview.append(img);
+        };
+}</script>

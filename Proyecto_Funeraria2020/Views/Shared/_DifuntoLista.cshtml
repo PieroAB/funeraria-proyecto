@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.Difunto>
+
+<div class="scroll" style=" width:100%;height:370px;overflow:auto ;">
+    <table class="table tabla" style="width:1400px;border: 2px solid black">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("Nro de identidad")</th>
+            <th class="th-tabla">@Html.Label("Tipo de documento")</th>
+            <th class="th-tabla">@Html.Label("Nombres")</th>
+            <th class="th-tabla">@Html.Label("Apellidos")</th>
+            <!--<th class="th-tabla">@Html.Label("Género")</th>-->
+            <th class="th-tabla">@Html.Label("Estado Civil")</th>
+            <th class="th-tabla">@Html.Label("Fecha de nacimiento")</th>
+            <th class="th-tabla">@Html.Label("Fecha de fallecimiento")</th>
+            <th class="th-tabla">@Html.Label("Lugar de fallecimiento")</th>
+            <!--<th class="th-tabla">@Html.Label("Acta defunción")</th>-->
+            <th class="th-tabla">@Html.Label("Relación")</th>
+            <th class="th-tabla"></th>
+            <th class="th-tabla"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.codDifunto)</td>
+                <td>
+                    @if (item.codTipoDocumento.Equals(1)){@Html.DisplayName("DNI")}
+                    else if (item.codTipoDocumento.Equals(2)){ @Html.DisplayName("CE")}
+                    else if (item.codTipoDocumento.Equals(3)){ @Html.DisplayName("RUC")}
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.nomDifunto)</td>
+                <td>@Html.DisplayFor(modelItem => item.apeDifunto)</td>
+                <!--<td>@Html.DisplayFor(modelItem => item.codGenero)</td>-->
+                <td>
+
+                    @if (item.codEstadoCivil.Equals("C")){ @Html.DisplayName("Casado(a)")}
+                    else if (item.codEstadoCivil.Equals("D")){ @Html.DisplayName("Divorciado(a)")}
+                    else if (item.codEstadoCivil.Equals("S")){ @Html.DisplayName("Soltero(a)")}
+                    else if (item.codEstadoCivil.Equals("SE")){ @Html.DisplayName("Separado(a)")}
+                    else if (item.codEstadoCivil.Equals("U")){ @Html.DisplayName("Union Libre")}
+                    else if (item.codEstadoCivil.Equals("V")){ @Html.DisplayName("Viudo(a)")}
+                </td>
+
+                <td>@Html.DisplayFor(modelItem => item.fecNacDifunto)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecFallDifunto)</td>
+                <td>@Html.DisplayFor(modelItem => item.lugFallDifunto)</td>
+                <!--<td><img style="width:50px;height:50px;" src="@Url.Content(item.imgActaDifunto)" alt="imagen no disponible" /></td>-->
+                <td>
+                    @if (item.asignaDifunto.Equals("No asignado"))
+                    {
+                        @Html.ActionLink("No asignado", "AsignarRelacion", new { id = item.codDifunto }, new { @class = "btn btn-primary" }) 
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Asignado", null, null, new { @class = "btn btn-success", disabled = "disabled" })
+                    }
+
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditDifunto", new { id = item.codDifunto }, new { @class = "btn btn-info" })
+                </td>
+                <td>
+                    @if (item.asignaDifunto.Equals("No asignado")){ @Html.ActionLink("Eliminar", "DeleteDifunto", new { id = item.codDifunto }, new { @class = "btn btn-danger" })}
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />

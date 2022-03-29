@@ -1,0 +1,126 @@
+﻿
+.cont {
+    position: relative;
+    height: 100%;
+    background-image: url(/Imagenes/Fondos/fondo2.jpg);
+    background-size: cover;
+    overflow: auto;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.cuerpo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -15rem;
+    margin-top: -26.5rem;
+    width: 30rem;
+    height: 53rem;
+    overflow: hidden;
+    border-radius: 1em
+}
+
+.login {
+    position: relative;
+    height: 100%;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(146, 135, 187, 0.8)), to(rgba(0, 0, 0, 0.6)));
+    background: linear-gradient(to bottom, rgba(146, 135, 187, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+    border-radius: 1em;
+    
+}
+
+
+.login__formulario {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    padding: 1.5rem 2.5rem;
+    margin:0px;
+    text-align: center;
+}
+
+.login__imagen {
+    height: 5.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+.login__fila {
+    height: 5.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+    .login__fila > i {
+        font-size: 1.50em;
+        color: white;
+    }
+
+.login__icon {
+    margin-bottom: -0.4rem;
+    margin-right: 0.5rem;
+}
+
+.login__input {
+    display: inline-block;
+    width: 21rem;
+    height: 100%;
+    padding-left: 1.5rem;
+    font-size: 1.5rem;
+    margin-left: 15px;
+    background: #00000001;
+    color: #120505;
+    border-radius: 10px;
+    cursor: text;
+}
+
+    .login__input::placeholder {
+        color: #e0c9c9;
+    }
+
+input, button {
+    outline: none;
+    border: none;
+}
+
+.login__enviar {
+    position: relative;
+    width: 100%;
+    height: 4rem;
+    margin: 2rem 0 2.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: #56c33bab;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+    transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+}
+
+
+
+
+.login__olvidar {
+    font-size: 1.2rem;
+    color: #ABA8AE;
+}
+
+
+
+.mensaje {
+    color: #000000f2;
+    font-weight: 700;
+    border-bottom: 1px solid;
+}
+
+
+.login__olvidar a {
+    color: #fff;
+    cursor: pointer;
+}

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Proyecto_Funeraria2020.Models.DetallePlan>
+
+@{
+    ViewBag.Title = "VerItemsAnadidosPlanes";
+}
+
+<style>
+</style>
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Planes</h2>
+    <div style="width:50%;margin-top:20px;">
+        @Html.ActionLink("Regresar", "ItemsPlan", null, new { @class = "btn btn-primary col-md-5 col-xs-12 ", @style = "float:right;" })
+    </div>
+</div>
+<hr />
+<h4>Items Agregados Al Plan</h4>
+<hr />
+<br />
+
+<div >
+   
+    @Html.ActionLink("Continuar con el Plan", "NuevoPlan", null, new { @class = "btn btn-warning col-md-3   " })
+</div>
+
+<br /><br /><br />
+
+<div class="scroll" style=" width:100%;height:100%; overflow: auto;">
+    <table class="table tabla" style="margin:0px auto; width:1000px;border: 2px solid black">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("Item")</th>
+            <th class="th-tabla">@Html.Label("Nombre")</th>
+            <th class="th-tabla">@Html.Label("Cantidad")</th>
+            <th class="th-tabla">@Html.Label("Precio")</th>
+            <th class="th-tabla">@Html.Label("Subtotal")</th>
+            <th class="th-tabla"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.codItem)</td>
+                <td>@Html.DisplayFor(modelItem => item.nomItem)</td>
+                <td>@Html.DisplayFor(modelItem => item.cantPlan)</td>
+                <td>S/. @Html.DisplayFor(modelItem => item.precio)</td>
+                <td>S/. @Html.DisplayFor(modelItem => item.subtotal)</td>
+                <td>@Html.ActionLink("Quitar", "DeleteItemPlan", new { id = item.codItem }, new { @class = "btn btn-danger col-md-7" })</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">@Html.Label("Monto del Plan")</td>
+            <td>S/. @Model.Sum(x => x.subtotal)</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />

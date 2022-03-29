@@ -1,0 +1,130 @@
+﻿
+@using Proyecto_Funeraria2020.Models;
+@model IEnumerable<Proyecto_Funeraria2020.Models.Representante>
+
+@{
+    ViewBag.Title = "Representantes";
+}
+
+<link href="~/Content/responsivo.css" rel="stylesheet" />
+
+
+<div style="display:flex;justify-content:space-between">
+
+    <h2>Representante</h2>
+    <div style="width:40%;margin-top:20px;">
+        @Html.ActionLink("Nuevo Representante", "CreateRepresentante", null, new { @class = "btn btn-primary col-md-5 ", @style = "float:right;" })
+    </div>
+</div>
+<hr />
+<h4>Lista de Representantes</h4>
+<hr />
+<br />
+<br />
+
+<div class="prodser">
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            <div class="div-izquierda">
+                <div class="form-group flexible">
+                    @Html.Label("Nombres / Apellidos", htmlAttributes: new { @class = "control-label col-md-5 col-xs-3" })
+
+                    <div class="col-md-7 col-xs-6">
+                        @Html.TextBox("para", null, new { maxlength = 50, @class = "form-control" })
+                    </div>
+
+                </div>
+
+                <div class="form-group flexible ">
+                    <div style="margin-left:auto; margin-right:auto;">
+                        <input type="submit" value="Buscar" class="btn btn-success col-md-12  col-xs-12" />
+                    </div>
+                </div>
+
+
+                <div class="form-group flexible text-danger mensaje">
+
+                    @if (TempData["msj"] != null)
+                    {
+
+                        @TempData["msj"];
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<!--(agregar arroba)Html.Partial("_RepresentanteLista", (List<Representante>)ViewBag.listado) -->
+
+<div class="scroll" style=" width:100%;height:350px; overflow:auto ;">
+    <table class="table tabla" style="width:1150px;border: 2px solid black ">
+        <tr class="tr-tabla">
+            <th class="th-tabla">@Html.Label("Nro Documento")</th>
+            <!--  <th class="th-tabla">@Html.Label("Tipo de Documento")</th>
+     <th class="th-tabla">@Html.Label("Tipo de Persona")</th> -->
+            <th class="th-tabla">@Html.Label("Nombre(s)")</th>
+            <th class="th-tabla">@Html.Label("Apellidos")</th>
+            <!--<th class="th-tabla">@Html.Label("Género")</th>-->
+            <th class="th-tabla">@Html.Label("Vivienda residencial")</th>
+            <!--<th class="th-tabla">@Html.Label("Distrito")</th>-->
+            <th class="th-tabla">@Html.Label("Teléfono")</th>
+            <th class="th-tabla"></th>
+            <th class="th-tabla"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.codRepresentante)</td>
+        <!--
+          <td>
+            @if (item.codTipoDocumento.Equals(1))
+            {@Html.DisplayName("DNI")}
+        else if (item.codTipoDocumento.Equals(2))
+        { @Html.DisplayName("CE")}
+    else if (item.codTipoDocumento.Equals(3))
+    { @Html.DisplayName("RUC")}
+        </td>
+        <td>
+            @if (item.codTipoPersona.Equals(1))
+            {@Html.DisplayName("Natural")}
+        else if (item.codTipoPersona.Equals(2))
+        { @Html.DisplayName("Jurídica")}
+        </td>-->
+        <td>@Html.DisplayFor(modelItem => item.nomRepresentante)</td>
+        <td>@Html.DisplayFor(modelItem => item.apeRepresentante)</td>
+        <!--<td>@Html.DisplayFor(modelItem => item.codGenero)</td>-->
+        <td>@Html.DisplayFor(modelItem => item.dirRepresentante)</td>
+        <!--<td>@Html.DisplayFor(modelItem => item.codDistrito)</td>-->
+        <td>@Html.DisplayFor(modelItem => item.telRepresentante)</td>
+        <td>@Html.ActionLink("Editar", "EditRepresentante", new { id = item.codRepresentante }, new { @class = "btn btn-info" })</td>
+        <td>@Html.ActionLink("Eliminar", "DeleteRepresentante", new { id = item.codRepresentante }, new { @class = "btn btn-danger" })</td>
+    </tr>
+        }
+
+    </table>
+</div>
+
+
+
+<div class="paginacion" >
+    <!--dos botones-->
+    @Html.ActionLink("<<", "Representantes", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "rp" },
+    new { @class = "btn btn-success" })
+
+    @Html.ActionLink("<", "Representantes", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "r" },
+    new { @class = "btn btn-default" })
+
+    @Html.Label(((int)ViewBag.v + 1).ToString(), new { @class = "pagina" })
+
+    @Html.ActionLink(">", "Representantes", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "a" },
+    new { @class = "btn btn-default" })
+
+    @Html.ActionLink(">>", "Representantes", new { v = (int)ViewBag.v, para = (string)ViewBag.para, boton = "au" },
+    new { @class = "btn btn-success" })
+
+</div>
